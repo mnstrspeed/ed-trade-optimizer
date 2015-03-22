@@ -54,9 +54,9 @@ def print_route(r):
         [
             borders[0] + line(60, commodity(r['ab'][0])['name']) + borders[1],
             "".join(column([ \
-                ["{} profit".format(profit(r['ab']))], \
+                ["{} profit".format(profit(r['ba']))], \
                 ["{} Ly".format(distance(r['a'], r['b']))], \
-                ["{} profit".format(profit(r['ba']))]], width=62)),
+                ["{} profit".format(profit(r['ab']))]], width=62)),
             borders[2] + line(60, commodity(r['ba'][0])['name']) + borders[3]
         ],
         [ r['b']['system_name'], r['b']['name'], "({} Ls)".format(r['b']['distance_to_star']) ],
