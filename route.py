@@ -1,23 +1,29 @@
 import json
+import msgpack
 import math
 import difflib
 from layout import *
 
-stations = json.load(open('merged_stations.json'))
+#stations = json.load(open('merged_stations.json'))
+stations = msgpack.unpack(open('merged_stations.mp'))
 commodities = json.load(open('commodities.json'))
 
 print "Loaded {} stations and {} commodities".format(len(stations), len(commodities))
 
 location = None
 while not location:
-    matches = difflib.get_close_matches(raw_input('Where are you? '), \
-        [s['name'] for s in stations])
-    for i, match in enumerate(matches):
-        s = next(s for s in stations if s['name'] == matches[i])
-        print "{}. {}, {}".format(i, s['name'], s['system_name'])
-    selected = input('Index: ')
-    if 0 <= selected < len(matches):
-        location = next(x for x in stations if x['name'] == matches[selected])
+    query = raw_input('Where are you? [Worlidge Station] ')
+    if not query:
+        location = next(x for x in stations if x['name'] == "Worlidge Terminal")
+    else:
+        matches = difflib.get_close_matches(query, \
+            [s['name'] for s in stations])
+        for i, match in enumerate(matches):
+            s = next(s for s in stations if s['name'] == matches[i])
+            print "{}. {}, {}".format(i, s['name'], s['system_name'])
+        selected = raw_input('Index: ')
+        if 0 <= int(selected) < len(matches):
+            location = next(x for x in stations if x['name'] == matches[int(selected)])
 
 def distance(a, b):
     dx = a["x"] - b["x"]

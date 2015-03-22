@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import json
+import msgpack
 import time
 import sys
 
@@ -28,6 +29,6 @@ for station in progress(stations):
     station["z"] = system["z"]
 
 print "Saving to merged_stations.json..."
-with open('merged_stations.json', 'w') as out:
-    json.dump(stations, out)
+with open('merged_stations.mp', 'w') as out:
+    msgpack.pack(stations, out)
 print "Done"
