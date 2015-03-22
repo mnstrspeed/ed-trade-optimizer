@@ -1,7 +1,7 @@
 # ed-trade-optimizer
 Trade helper for Elite: Dangerous that searches for a trade route `a -> b` that maximizes `profit(best_deal(a, b)) + profit(best_deal(b, a))` 
 
-Currently required 3 steps:
+Currently requires 3 steps:
 
 1. Download the latest `stations.json`, `systems.json`, and `commodities.json` from http://eddb.io/api
 2. Run `merge.py` to optimize the data set for trade calculations
