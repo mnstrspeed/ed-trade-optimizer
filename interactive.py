@@ -1,9 +1,13 @@
+#! /usr/bin/python
+
+import code
+import msgpack
 import json
 import math
 import difflib
 from layout import *
 
-stations = json.load(open('merged_stations.json'))
+stations = msgpack.unpack(open('merged_stations.mp'))
 commodities = json.load(open('commodities.json'))
 
 print "Loaded {} stations and {} commodities".format(len(stations), len(commodities))
@@ -32,10 +36,18 @@ def best_deal(a, b):
         return (None, None)
     return max(deals, key=profit)
 
+def commodity(x):
+    return [c for c in commodities if c["id"] == x["commodity_id"]][0]
+
 def station(name):
     return next(s for s in stations if s['name'] == name)
 
-print "station(name)"
-print "best_deal(station_a, station_b)"
-print "profit(listing_a, listing_b)"
+print "You may use:"
+print "  station(name)"
+print "  commodity(name)"
+print "  distance(station_a, station_b)"
+print "  best_deal(station_a, station_b)"
+print "  profit(listing_a, listing_b)"
+print ""
 
+code.interact(local=locals())
